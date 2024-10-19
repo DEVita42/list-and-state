@@ -13,29 +13,35 @@ const TodoList = () => {
     }
   }
 
+  function handleInputChange() {
+    const value = event.target.value;
+    setInputValue(value);
+  }
+
   function handleReset() {
     setTodos([]);
   }
 
+  function removeTodo(index) {
+    const newTodos = todos.filter((todo, todoIndex) => todoIndex !== index);
+    setTodos(newTodos);
+  }
+
   return (
     <div>
-      <h1>Todo List</h1>
-      <input
-        type="text"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        placeholder="Enter a new todo"
-      />
-      <button onClick={addTodo}>Add Todo</button>
-      <button onClick={handleReset}>Reset</button>
-
       <ul>
         {todos.map((todo, index) => (
-          <li key={index}>{todo}</li>
+          <li key={index}>
+            {todo}
+            <button onClick={() => removeTodo(index)}>Remove</button>
+          </li>
         ))}
       </ul>
+      <input type="text" value={inputValue} onChange={handleInputChange} />
+      <button onClick={addTodo}>Add todo</button>
+      <button onClick={handleReset}>Reset</button>
     </div>
   );
 };
 
-export default TodoList;
+export default TodoList
