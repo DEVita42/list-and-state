@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
-  const addTodo = () => {
-    if (inputValue.trim()) {
+  function addTodo() {
+    if (inputValue !== "") {
       setTodos([...todos, inputValue]);
-      setInputValue('');
+      setInputValue("");
+    } else {
+      alert("Input field cannot be empty");
     }
-  };
+  }
+
+  function handleReset() {
+    setTodos([]);
+  }
 
   return (
     <div>
@@ -21,6 +27,7 @@ const TodoList = () => {
         placeholder="Enter a new todo"
       />
       <button onClick={addTodo}>Add Todo</button>
+      <button onClick={handleReset}>Reset</button>
 
       <ul>
         {todos.map((todo, index) => (
